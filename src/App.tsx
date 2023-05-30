@@ -32,11 +32,19 @@ function App() {
     // Preventing consecutive operators that could break the calculation, eval doesn't support ** or //
     const lastCharacter = input.slice(-1);
     const isLastCharacterOperator = OPERATORS.includes(lastCharacter);
+    // if last character is division or multiplication operator, replace that one with the new one
+    if (
+      (operator === "/" || operator === "*") &&
+      (lastCharacter === "/" || lastCharacter === "*")
+    ) {
+      setInput(input.slice(0, -1) + operator);
+    }
     // if the last character is not an operator or if the last character is an operator and the new operator is - or +
     if (
       !isLastCharacterOperator ||
       (isLastCharacterOperator && (operator === "-" || operator === "+"))
     ) {
+      // add that operator to the input
       setInput(input + operator);
     }
   };
