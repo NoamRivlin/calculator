@@ -4,7 +4,10 @@ import TextField from "@mui/material/TextField";
 import "./App.css";
 
 function App() {
+  // State to store the input value
   const [input, setInput] = useState<string>("");
+  // Array of digits and decimal point to be displayed as buttons
+  // Includes both numbers and string representation of the decimal point (".")
   const DIGITS: (number | string)[] = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0];
   const OPERATORS: string[] = ["+", "-", "*", "/"];
 
@@ -13,12 +16,13 @@ function App() {
   };
 
   const handleOperatorClick = (operator: string) => {
-    // Check if the last input character is an operator other than *
+    // Preventing consecutive operators that could break the calculation
     const lastCharacter = input.slice(-1);
-    if (lastCharacter === "*" || lastCharacter === "/") {
-      // Replace the last operator with the new operator
-      setInput(input.slice(0, -1) + operator);
-    } else {
+    const isLastCharacterOperator = OPERATORS.includes(lastCharacter);
+    if (
+      !isLastCharacterOperator ||
+      (isLastCharacterOperator && (operator === "-" || operator === "+"))
+    ) {
       setInput(input + operator);
     }
   };
