@@ -69,46 +69,6 @@ function App() {
     }
   };
 
-  // managed to ignore decimals after decimals - 2.2.2 + 2 will be calculated as 2.2+2
-  // BUT fails on long calculations...
-  // const handleCalculate = () => {
-  //   // calculate ignores decimals after decimals - 2.2.2 + 2 will be calculated as 2.2+2
-  //   try {
-  //     // Split the input into separate numbers based on operators (+, -, *, /)
-  //     const numbers = input.split(/[-+*/]/);
-
-  //     // Convert each number in the input to its string representation without leading zeros
-  //     const parsedNumbers = numbers.map((num) => {
-  //       if (num.includes(".")) {
-  //         // If the number contains a decimal point, remove leading zeros
-  //         return parseFloat(num).toString();
-  //       } else {
-  //         // If the number is an integer, remove leading zeros
-  //         return parseFloat(num).toString().replace(/^0+/, "");
-  //       }
-  //     });
-
-  //     // Reconstruct the expression by combining the parsed numbers and operators
-  //     let expression = "";
-  //     for (let i = 0; i < parsedNumbers.length; i++) {
-  //       expression += parsedNumbers[i];
-  //       if (i < numbers.length - 1) {
-  //         // Append the operator based on the length of the current number
-  //         expression += input.charAt(numbers[i].length);
-  //       }
-  //     }
-
-  //     // Evaluate the expression using eval and calculate the result
-  //     const calculatedResult = eval(expression);
-
-  //     // Set the input to the calculated result
-  //     setInput(calculatedResult.toString());
-  //   } catch (error: any) {
-  //     // Set the input to the error message if an error occurs during calculation
-  //     setInput(error);
-  //   }
-  // };
-
   return (
     <>
       <h1> Calculator </h1>
