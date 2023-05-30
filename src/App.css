@@ -2,41 +2,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 h1 {
   text-align: center;
 }
 
-/* 
 #container {
-  display: grid;
-  gap: 10px;
-  background-color: black;
-  padding: 20px;
-}
-
-.pad {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-
-.digits {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5px;
-}
-
-.operators {
-  display: grid;
-  grid-template-columns: 0.5fr;
-  gap: 10px;
-} */
-
-#container {
-
   gap: 10px;
   background-color: black;
   padding: 20px;
@@ -45,7 +18,7 @@ h1 {
 .pad {
   margin-top: 10px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 10px;
 }
 
@@ -63,6 +36,5 @@ h1 {
 
 .operators {
   display: grid;
-  grid-template-columns: repeat(1, 0.5fr);
   gap: 10px;
 }
