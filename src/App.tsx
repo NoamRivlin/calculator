@@ -36,8 +36,8 @@ function App() {
   };
 
   const handleClearEntry = () => {
-    // If the input is Infinity, -Infinity, or NaN, clear the input
-    if (input === "Infinity" || input === "-Infinity" || input === "NaN") {
+    // if input is different than a number, clear the input
+    if (isNaN(parseInt(input))) {
       setInput("");
     } else {
       // Remove the last character from the input
