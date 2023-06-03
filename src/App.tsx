@@ -13,30 +13,33 @@ function App() {
   const DIGITS: (number | string)[] = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, "."];
   const OPERATORS: string[] = ["+", "-", "*", "/"];
 
-  // TODO prevent multiple decimel points - 2.2.2
   const handleDigitClick = (digit: number | string) => {
-    // Ignore consecutive decimal points or decimal point at the beginning of input
-    // check input with regex /\d$/gm to see if the last character is a digit
+    // check input with regex if the last character is a digit or a decimal point
     if (digit === "." && (!/\d$/gm.test(input) || /\d\.\d+$/gm.test(input))) {
+      // Ignore the digit click if it's a decimal point and the input already ends with a decimal point
+      // or if it ends with a digit followed by a decimal point
       return;
     }
-
     setInput(input + digit);
   };
 
   const handleOperatorClick = (operator: string) => {
     if (operator === "/" || operator === "*") {
+      // if the last character of the input is multiplication or division
+      // replace it with the new operator
       setInput(input.replace(/\*|\/$/gm, operator));
+      // if the last character of the input is a digit, add the operator to the input
       if (/\d$/gm.test(input)) setInput(input + operator);
     }
 
     if (operator === "-" || operator === "+") {
+      // if the last character of the input is a digit, add the operator to the input
       if (!/\.$/gm.test(input)) setInput(input + operator);
     }
   };
 
   const handleClearEntry = () => {
-    // if input is different than a number, clear the input
+    // If the input is not a valid number, clear the input
     if (isNaN(parseInt(input))) {
       setInput("");
     } else {
@@ -56,9 +59,15 @@ function App() {
       // Replace consecutive "--" with "+"
       sanitizedInput = sanitizedInput.replace("--", "+");
 
-      const calculatedResult = eval(sanitizedInput);
+      // Evaluate the sanitized input expression
+      let calculatedResult = eval(sanitizedInput);
+      // round the result to 4 decimal places
+      calculatedResult = parseFloat(calculatedResult.toFixed(4));
+
+      // Set the rounded result as the new input
       setInput(calculatedResult.toString());
     } catch (error: any) {
+      // If an error occurs during evaluation, set the error message as the new input
       setInput(error);
     }
   };
