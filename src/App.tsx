@@ -4,6 +4,8 @@ import TextField from "@mui/material/TextField";
 import "./App.css";
 
 function App() {
+  // TODO: display preview of the calculation and the process of the calculation after the user clicks the equal sign
+
   // State to store the input value
   const [input, setInput] = useState<string>("");
   // Array of digits and decimal point to be displayed as buttons
@@ -13,12 +15,9 @@ function App() {
 
   // TODO prevent multiple decimel points - 2.2.2
   const handleDigitClick = (digit: number | string) => {
-    const lastCharacter = input.slice(-1);
     // Ignore consecutive decimal points or decimal point at the beginning of input
-    if (
-      (digit === "." && input === "") ||
-      (digit === "." && lastCharacter === ".")
-    ) {
+    // check input with regex /\d$/gm to see if the last character is a digit
+    if (digit === "." && (!/\d$/gm.test(input) || /\d\.\d+$/gm.test(input))) {
       return;
     }
 
@@ -26,26 +25,13 @@ function App() {
   };
 
   const handleOperatorClick = (operator: string) => {
-    // ignores division or multiplication operators if input is empty
-    if (input === "" && (operator === "/" || operator === "*")) return;
-
-    // Preventing consecutive operators that could break the calculation, eval doesn't support ** or //
-    const lastCharacter = input.slice(-1);
-    const isLastCharacterOperator = OPERATORS.includes(lastCharacter);
-    // if last character is division or multiplication operator, replace that one with the new one
-    if (
-      (operator === "/" || operator === "*") &&
-      (lastCharacter === "/" || lastCharacter === "*")
-    ) {
-      setInput(input.slice(0, -1) + operator);
+    if (operator === "/" || operator === "*") {
+      setInput(input.replace(/\*|\/$/gm, operator));
+      if (/\d$/gm.test(input)) setInput(input + operator);
     }
-    // if the last character is not an operator or if the last character is an operator and the new operator is - or +
-    if (
-      !isLastCharacterOperator ||
-      (isLastCharacterOperator && (operator === "-" || operator === "+"))
-    ) {
-      // add that operator to the input
-      setInput(input + operator);
+
+    if (operator === "-" || operator === "+") {
+      if (!/\.$/gm.test(input)) setInput(input + operator);
     }
   };
 
